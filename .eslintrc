@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  
+  "extends": [
+    "eslint:recommended"
+  ],
+  "rules": {
+    "brace-style": [
+      "error", "stroustrup"
+    ],
+    "quotes": [
+      "error", "double"
+    ],
+    "indent": [
+      "error", 2
+    ],
+    "semi": [
+      "error", "always"
+    ],
+    "eol-last": [
+      "error", "always"
+    ],
+    "eqeqeq": [
+      "error", "always"
+    ],
+    "comma-dangle": [
+      "error", "never"
+    ],
+    
+    "no-return-await": "error",
+    "no-trailing-spaces": "error"
+  }
+}
