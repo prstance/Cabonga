@@ -7,9 +7,13 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/eden": "latest",
+    "elysia": "^0.7.2",
+    "node-html-parser": "^6.1.10",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "bun-types": "latest",
