@@ -7,8 +7,10 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
+    "@elysiajs/cors": "^0.7.0",
     "@elysiajs/eden": "latest",
     "elysia": "^0.7.2",
+    "node-fetch": "^3.3.2",
     "node-html-parser": "^6.1.10",
     "uuid": "^9.0.1"
   },

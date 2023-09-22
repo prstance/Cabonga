@@ -1,13 +1,21 @@
-import { edenFetch } from '@elysiajs/eden'
-import type { App } from './index'
+import { dlopen, FFIType, suffix } from "bun:ffi";
 
-const fetch = edenFetch<App>('http://localhost:8000')
-const response = await fetch('/v1/token', {
-  method: "POST",
-  body: {
-    username: "e",
-    password: "e"
-  }
-})
+// `suffix` is either "dylib", "so", or "dll" depending on the platform
+// you don't have to use "suffix", it's just there for convenience
+const path = `libsqlite3.${suffix}`;
 
-console.log(response)
+const {
+  symbols: {
+  },
+} = dlopen(
+  path,
+  {
+    sqlite3_libversion: {
+      // no arguments, returns a string
+      args: [],
+      returns: FFIType.cstring,
+    },
+  },
+);
+
+console.log(`SQLite 3 version: ${()}`);

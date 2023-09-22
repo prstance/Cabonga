@@ -5,6 +5,7 @@ const baseUrls = {
 
 const urls = {
   auth: baseUrls.LOGIN_BASE_URL + "auth",
+  token: baseUrls.LOGIN_BASE_URL + "token",
 }
 
 export default urls
