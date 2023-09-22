@@ -3,6 +3,10 @@ import urls from "./cabanga_urls";
 import { v4 as uuidv4 } from 'uuid';
 import { parse } from 'node-html-parser';
 import cors from "@elysiajs/cors";
+import { PrismaClient } from '@prisma/client'
+import { NotWhitelistedError } from "./errors";
+
+const db = new PrismaClient()
 
 const authPlugin = new Elysia()
   .group('/token', app => app
@@ -125,17 +129,35 @@ const authPlugin = new Elysia()
 
 const app = new Elysia()
   .use(cors())
-  .onError(({ code, error }) => {
-    switch (code) {
-      case 'VALIDATION':
-        return {status: "error", message: error.message}
-      case 'UNKNOWN':
-        return {status: "error", message: "Server Error"}
-      default:
-        return {status: "error", message: error.message}
-    }
-  })
   .group('/v1', app => app
+    .addError({
+      WhitelistError: NotWhitelistedError
+  })
+    .onError(({ code, error, set }) => {
+      switch (code) {
+        case 'WhitelistError':
+          set.status = 403
+          return {status: "error", message: error.message}
+        case 'UNKNOWN':
+          return {status: "error", message: "Server Error"}
+        default:
+          return {status: "error", message: error.message}
+      }
+    })
+    .decorate("isUserWhitelisted", async (username: string) => {
+      return  db.user.findUnique({
+        where: {
+          username: username,
+          whitelisted: true
+        }
+      })
+    })
+    .onAfterHandle(async ({path, body, isUserWhitelisted}) => {
+      if (path === "/v1/token/" || path === "/v1/token") {
+        const user = await  isUserWhitelisted((body as {username: string}).username)
+        if (!user) throw new NotWhitelistedError("Non-whitelisted user")
+      }
+    })
     .use(authPlugin)
     .get('/', () => {
       return "Using v1"

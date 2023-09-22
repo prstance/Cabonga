@@ -1,8 +1,8 @@
-class TestError extends Error {
+class NotWhitelistedError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "TestError";
+    this.name = "NotWhitelistedError";
   }
 }
 
-export { TestError}
+export { NotWhitelistedError }

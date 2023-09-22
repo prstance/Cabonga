@@ -9,9 +9,11 @@
   "dependencies": {
     "@elysiajs/cors": "^0.7.0",
     "@elysiajs/eden": "latest",
+    "@prisma/client": "5.3.1",
     "elysia": "^0.7.2",
     "node-fetch": "^3.3.2",
     "node-html-parser": "^6.1.10",
+    "prisma": "^5.3.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
