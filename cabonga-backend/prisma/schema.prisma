@@ -13,5 +13,10 @@ datasource db {
 model User {
   id          Int     @id
   username    String  @unique
-  whitelisted Boolean @default(true)
+  whitelisted Boolean @default(false)
+}
+
+model Config {
+  id Int @id @default(autoincrement())
+  whitelist Boolean @default(false)
 }
