@@ -17,6 +17,6 @@ model User {
 }
 
 model Config {
-  id Int @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   whitelist Boolean @default(false)
 }
