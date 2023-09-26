@@ -1,4 +1,5 @@
 import urls from "@/cabanga_urls";
+import { profileType } from "@/types";
 import Elysia, { t } from "elysia";
 
 const dataPlugin = new Elysia()
@@ -10,7 +11,9 @@ const dataPlugin = new Elysia()
         "Authorization": bearerToken
       }
     })
-    return response
+
+    const profile: profileType = await response.json()
+    return profile
   }, {
     headers: t.Object({
       authorization: t.String({
