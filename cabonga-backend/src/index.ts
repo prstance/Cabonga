@@ -16,6 +16,7 @@ const app = new Elysia()
       RefreshTokenError: InvalidRefreshTokenError
     })
     .onError(({ code, error, set }) => {
+      console.log(error.message)
       switch (code) {
         case 'WhitelistError':
           set.status = 403
@@ -24,7 +25,7 @@ const app = new Elysia()
           set.status = 400
           return {status: "error", message: error.message}
         case 'UNKNOWN':
-          return {status: "error", message: "Server Error"}
+          return {status: "error", message: "SERVER_ERROR"}
         default:
           return {status: "error", message: error.message}
       }
@@ -32,7 +33,7 @@ const app = new Elysia()
     .decorate("isUserWhitelisted", async (username: string) => {
       return  db.user.findUnique({
         where: {
-          username: username,
+          username: String(username),
           whitelisted: true
         }
       })
@@ -66,7 +67,7 @@ const app = new Elysia()
       return "Using v1"
     })
   )
-  .listen(8080);
+  .listen(8000);
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`

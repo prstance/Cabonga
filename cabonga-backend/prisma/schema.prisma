@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id          Int     @id
+  id          Int
   username    String  @unique
   whitelisted Boolean @default(false)
 }
