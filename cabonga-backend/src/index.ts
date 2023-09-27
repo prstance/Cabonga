@@ -1,7 +1,7 @@
 import { Elysia, t } from "elysia";
 import cors from "@elysiajs/cors";
 import { PrismaClient } from '@prisma/client'
-import { NotWhitelistedError, InvalidRefreshTokenError } from "./errors";
+import { NotWhitelistedError, InvalidRefreshTokenError, LoginError } from "./errors";
 import authPlugin from "./plugins/auth";
 import dataPlugin from "./plugins/data";
 
@@ -13,16 +13,20 @@ const app = new Elysia()
   .group('/v1', app => app
     .addError({
       WhitelistError: NotWhitelistedError,
-      RefreshTokenError: InvalidRefreshTokenError
+      RefreshTokenError: InvalidRefreshTokenError,
+      LoginError: LoginError
     })
     .onError(({ code, error, set }) => {
-      console.log(error.message)
+      console.log(code)
       switch (code) {
         case 'WhitelistError':
           set.status = 403
           return {status: "error", message: error.message}
         case 'RefreshTokenError':
           set.status = 400
+          return {status: "error", message: error.message}
+        case 'LoginError':
+          set.status = 401
           return {status: "error", message: error.message}
         case 'UNKNOWN':
           return {status: "error", message: "SERVER_ERROR"}
@@ -46,19 +50,11 @@ const app = new Elysia()
       })
     })
     .onBeforeHandle(async ({path, body, isUserWhitelisted, getConfig}) => {
-      // Get the configuration settings for the application
       const cfg = await getConfig()
-
-      // If there is no configuration, throw an error
       if (!cfg) throw new Error()
-
-      // Check if the request path is in the whitelist and relates to token endpoints
       if (cfg.whitelist && (path === "/v1/token/" || path === "/v1/token")) {
-        // Extract the username from the request body
         const user = await isUserWhitelisted((body as {username: string}).username)
-
-        // If the user is not whitelisted, throw a NotWhitelistedError
-        if (!user) throw new NotWhitelistedError("Non-whitelisted user")
+        if (!user) throw new NotWhitelistedError()
       }
     })
     .use(authPlugin)

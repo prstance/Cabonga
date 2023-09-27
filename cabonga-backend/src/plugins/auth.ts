@@ -2,7 +2,7 @@ import { Elysia, t } from "elysia";
 import { v4 as uuidv4 } from 'uuid';
 import { parse } from 'node-html-parser';
 import urls from "@/cabanga_urls";
-import { InvalidRefreshTokenError } from "@/errors";
+import { InvalidRefreshTokenError, LoginError } from "@/errors";
 import { authTokensType } from "@/types";
 
 const authPlugin = new Elysia()
@@ -101,7 +101,7 @@ const authPlugin = new Elysia()
       const { action, authCookies } = await getAction()
       if (!action || !authCookies) throw new Error() 
       const code = await getCode(action!, body, authCookies!)
-      if (!code) throw new Error()
+      if (!code) throw new LoginError()
       const tokens = await getToken(code)
       if (!tokens) throw new Error()
       const data: authTokensType = {
@@ -149,7 +149,7 @@ const authPlugin = new Elysia()
       }
       })
       const tokens = await response.json()
-      if (tokens["error"] !== undefined) throw new InvalidRefreshTokenError("Invalid refresh token")
+      if (tokens["error"] !== undefined) throw new InvalidRefreshTokenError()
       const data: authTokensType = {
         "access": tokens['access_token'],
         "refresh": tokens['refresh_token'],

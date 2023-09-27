@@ -1,17 +1,26 @@
 class NotWhitelistedError extends Error {
-  constructor(message: string) {
-    message = "WHITELIST_ERROR"
-    super(message);
+  constructor() {
+    super();
     this.name = "NotWhitelistedError";
+    this.message = "WHITELIST_ERROR"
   }
 }
 
 class InvalidRefreshTokenError extends Error {
-  constructor(message: string) {
-    message = "REFRESHTOKEN_ERROR"
-    super(message);
+  constructor() {
+    super()
     this.name = "InvalidRefreshTokenError";
+    this.message = "REFRESHTOKEN_ERROR"
   }
 }
 
-export { NotWhitelistedError, InvalidRefreshTokenError }
+class LoginError extends Error {
+  constructor() {
+    super();
+    this.name = "LoginError";
+    this.message = "LOGIN_ERROR"
+  }
+}
+
+
+export { NotWhitelistedError, InvalidRefreshTokenError, LoginError }

@@ -8,14 +8,13 @@ import { Component } from "solid-js";
 const Dashboard: Component = () => {
   return (
     <Page text="Accueil" protected>
-      Bienvenu inconnu au bataillon
-      {/* <WelcomeBox/>
+      <WelcomeBox/>
       <div class="h-5" />
       <DiaryBox/>
       <div class="h-5" />
       <EvaluationsBox/>
       <div class="h-5" />
-      <AgendaBox/> */}
+      <AgendaBox/>
     </Page>
   );
 };

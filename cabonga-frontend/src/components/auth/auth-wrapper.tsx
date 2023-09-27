@@ -31,16 +31,16 @@ const AuthWrapper: ParentComponent = props => {
     }
     else {
       console.log("Access Token found");
-      // const response = await getProfile(() => authStore.authTokens!.access);
-      // if (response.status !== "ok") {
-      //   setLogged(false);
-      //   clearData();
-      // }
-      // else {
-      //   const decodedJWT: decodedJwtType = jwt_decode(authStore.authTokens?.access);
-      //   setAuthStore({isAuthenticated: true, profile: response.data, decodedJWT: decodedJWT});
-      //   setLogged(true);
-      // }
+      const response = await getProfile(() => authStore.authTokens!.access);
+      if (response.status !== "ok") {
+        setLogged(false);
+        clearData();
+      }
+      else {
+        const decodedJWT: decodedJwtType = jwt_decode(authStore.authTokens?.access);
+        setAuthStore({isAuthenticated: true, profile: response.data, decodedJWT: decodedJWT});
+        setLogged(true);
+      }
     }
   }));
 

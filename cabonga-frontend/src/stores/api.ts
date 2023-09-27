@@ -33,9 +33,9 @@ const fetchData = async (accessToken: string, school: string, student: string) =
   };
 
   setAuthStore({diary: (await fetchJson("diary", `?school=${school}&student=${student}&from=${diaryDate}&to=${diaryDate}`, headers)).data});
-  setAuthStore({evaluations: await fetchJson("evaluations", `?school=${school}&student=${student}&year=2022`, headers)});
-  setAuthStore({agenda: (await fetchJson("activities", `?school=${school}&year=${today.getFullYear()}&month=${today.getMonth() + 1}`, headers)).data});
-  setAuthStore({groups: await fetchJson("chat", "", headers)});
+  setAuthStore({evaluations: (await fetchJson("evaluations", `?school=${school}&student=${student}&year=2022`, headers)).data});
+  // setAuthStore({agenda: (await fetchJson("activities", `?school=${school}&year=${today.getFullYear()}&month=${today.getMonth() + 1}`, headers)).data});
+  // setAuthStore({groups: await fetchJson("chat", "", headers)});
 };
 
 const getAuthTokens = async (email: string, password: string) => {
