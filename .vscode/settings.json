@@ -6,6 +6,7 @@
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
     "eslint.workingDirectories": [
-      "./cabonga-backend"
+      "./packages/backend",
+      "./packages/frontend",
     ]
   }
