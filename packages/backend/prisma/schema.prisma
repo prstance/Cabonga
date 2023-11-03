@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int
+  username    String  @unique
+  whitelisted Boolean @default(false)
+}
+
+model Config {
+  id        Int     @id @default(autoincrement())
+  whitelist Boolean @default(false)
+}
+
+model Group {
+  id        Int    @id @default(autoincrement())
+  name      String
+  image     String @default("https://www.pngitem.com/pimgs/m/126-1266633_community-social-group-illustration-group-of-people-vector.png")
+  members   String
+  messages  Message[]
+}
+
+model Message {
+  group         Group @relation(fields: [groupId], references: [id])
+  groupId       Int   @unique
+  email         String
+  showedName    String
+  content       String
+  publishedDate DateTime @default(now())
+}
