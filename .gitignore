@@ -4,3 +4,4 @@ node_modules
 # Production
 dist
 dev.db
+dev.db-journal
