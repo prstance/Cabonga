@@ -2,12 +2,12 @@
   "name": "vite-template-solid",
   "version": "0.0.0",
   "description": "",
-  "lint": "eslint . --ext .ts,.tsx ",
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx "
   },
   "license": "MIT",
   "devDependencies": {

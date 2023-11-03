@@ -1,0 +1,9 @@
+{
+  "name": "cabonga",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "dev": "cd packages/frontend && bun run dev & cd packages/backend && bun run dev"
+  },
+  "license": "MIT"
+}
