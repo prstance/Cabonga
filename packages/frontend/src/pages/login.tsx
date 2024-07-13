@@ -6,7 +6,7 @@ import { Component, createSignal, Show } from "solid-js";
 
 const Login: Component = () => {
 
-  const [emailValue, setEmailValue] = createSignal("mathieu.romain@ind-thuin.be");
+  const [emailValue, setEmailValue] = createSignal("");
   const [passwordValue, setPasswordValue] = createSignal("");
   const [error, setError] = createSignal<string | null>(null);
 
